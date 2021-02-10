@@ -2,9 +2,9 @@
 <organization:Organization xmlns:organization="http://documentation.bonitasoft.com/organization-xml-schema/1.1" name="Maybank">
   <customUserInfoDefinitions/>
   <users>
-    <user userName="sysAdmin">
-      <firstName>SYS</firstName>
-      <lastName>Admin</lastName>
+    <user userName="adminMaybank">
+      <firstName>Administrator</firstName>
+      <lastName>Maybank</lastName>
       <manager></manager>
       <personalData/>
       <professionalData/>
@@ -16,9 +16,15 @@
     <role name="admin">
       <displayName>Admin</displayName>
     </role>
+    <role name="spv">
+      <displayName>Supervisor</displayName>
+    </role>
+    <role name="member">
+      <displayName>Member</displayName>
+    </role>
   </roles>
   <groups>
-    <group name="fin">
+    <group name="finanace">
       <displayName>Finance</displayName>
     </group>
     <group name="admin">
@@ -27,7 +33,7 @@
   </groups>
   <memberships>
     <membership>
-      <userName>sysAdmin</userName>
+      <userName>adminMaybank</userName>
       <roleName>admin</roleName>
       <groupName>admin</groupName>
     </membership>
