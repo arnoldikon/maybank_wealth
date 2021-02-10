@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<organization:Organization xmlns:organization="http://documentation.bonitasoft.com/organization-xml-schema/1.1" name="Maybank">
+  <customUserInfoDefinitions/>
+  <users>
+    <user userName="sysAdmin">
+      <firstName>SYS</firstName>
+      <lastName>Admin</lastName>
+      <manager></manager>
+      <personalData/>
+      <professionalData/>
+      <password encrypted="false">1</password>
+      <customUserInfoValues/>
+    </user>
+  </users>
+  <roles>
+    <role name="admin">
+      <displayName>Admin</displayName>
+    </role>
+  </roles>
+  <groups>
+    <group name="fin">
+      <displayName>Finance</displayName>
+    </group>
+    <group name="admin">
+      <displayName>Admin</displayName>
+    </group>
+  </groups>
+  <memberships>
+    <membership>
+      <userName>sysAdmin</userName>
+      <roleName>admin</roleName>
+      <groupName>admin</groupName>
+    </membership>
+  </memberships>
+</organization:Organization>

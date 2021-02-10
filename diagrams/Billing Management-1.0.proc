@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+  <process:MainProcess xmi:id="_gnltIEjSEeuR78XBy6Awbg" name="Billing Management" author="arnold" bonitaVersion="7.12.1" bonitaModelVersion="7.12.0-004" configId="ACED0005740010372E31312E312D303031372E31312E34">
+    <elements xmi:type="process:Pool" xmi:id="_dpwdMGUlEeuGc6v4UE4n2w" documentation="Service to create invoice" name="SYS_GenerateInvoice" displayName="Service generate invoice">
+      <elements xmi:type="process:StartEvent" xmi:id="_eNR3YGXdEeuJr9wPcM03Qw" name="Incoming Invoice" outgoing="_hrGCEGXdEeuJr9wPcM03Qw">
+        <dynamicLabel xmi:type="expression:Expression" xmi:id="_eNTskGXdEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <dynamicDescription xmi:type="expression:Expression" xmi:id="_eNTFgGXdEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <stepSummary xmi:type="expression:Expression" xmi:id="_eNTskWXdEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+      </elements>
+      <elements xmi:type="process:EndEvent" xmi:id="_hq7C8GXdEeuJr9wPcM03Qw" name="Invoice Generated" incoming="_-a84wGXdEeuJr9wPcM03Qw">
+        <dynamicLabel xmi:type="expression:Expression" xmi:id="_hq7C8mXdEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <dynamicDescription xmi:type="expression:Expression" xmi:id="_hq7C8WXdEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <stepSummary xmi:type="expression:Expression" xmi:id="_hq7C82XdEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+      </elements>
+      <elements xmi:type="process:ScriptTask" xmi:id="_-ax5oGXdEeuJr9wPcM03Qw" name="Set invoice id" outgoing="_-a84wGXdEeuJr9wPcM03Qw" incoming="_hrGCEGXdEeuJr9wPcM03Qw">
+        <dynamicLabel xmi:type="expression:Expression" xmi:id="_-ax5omXdEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <dynamicDescription xmi:type="expression:Expression" xmi:id="_-ax5oWXdEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <stepSummary xmi:type="expression:Expression" xmi:id="_-ax5o2XdEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <operations xmi:type="expression:Operation" xmi:id="_ANplcGXeEeuJr9wPcM03Qw">
+          <leftOperand xmi:type="expression:Expression" xmi:id="_ANplcWXeEeuJr9wPcM03Qw" name="invoiceId" content="invoiceId" type="TYPE_VARIABLE" returnType="java.lang.Integer">
+            <referencedElements xmi:type="process:Data" xmi:id="_At8PEGXeEeuJr9wPcM03Qw" name="invoiceId" dataType="_gnltTkjSEeuR78XBy6Awbg"/>
+          </leftOperand>
+          <rightOperand xmi:type="expression:Expression" xmi:id="_ANplcmXeEeuJr9wPcM03Qw" name="invoiceId()" content="invoice.id" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Integer">
+            <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_LKMykGXeEeuJr9wPcM03Qw" name="invoice" dataType="_gnltVEjSEeuR78XBy6Awbg" className="kubik.finance.Invoice"/>
+          </rightOperand>
+          <operator xmi:type="expression:Operator" xmi:id="_ANplc2XeEeuJr9wPcM03Qw" type="ASSIGNMENT"/>
+        </operations>
+        <loopCondition xmi:type="expression:Expression" xmi:id="_-ax5pGXdEeuJr9wPcM03Qw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+        <loopMaximum xmi:type="expression:Expression" xmi:id="_-ax5pWXdEeuJr9wPcM03Qw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
+        <cardinalityExpression xmi:type="expression:Expression" xmi:id="_-ax5pmXdEeuJr9wPcM03Qw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
+        <iteratorExpression xmi:type="expression:Expression" xmi:id="_-aygsWXdEeuJr9wPcM03Qw" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
+        <completionCondition xmi:type="expression:Expression" xmi:id="_-aygsGXdEeuJr9wPcM03Qw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </elements>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_iL2IUGUlEeuGc6v4UE4n2w" name="invoice" dataType="_gnltVEjSEeuR78XBy6Awbg" className="kubik.finance.Invoice">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_p_XvAGUlEeuGc6v4UE4n2w" name="initInvoice()" content="import java.time.LocalDateTime&#xA;import org.bonitasoft.engine.identity.UserNotFoundException&#xA;&#xA;Integer id&#xA;def invoiceVar = new kubik.finance.Invoice()&#xA;def lastId = invoiceDAO.findByLastId(0, 1)&#xA;def prevId = lastId ? lastId[0].id : 0&#xA;def listAmount = []&#xA;def listTax = []&#xA;try{&#xA;&#x9;def processInitiator = apiAccessor.getIdentityAPI().getUser(apiAccessor.getProcessAPI()&#xA;&#x9;&#x9;&#x9;.getProcessInstance(processInstanceId)&#xA;&#x9;&#x9;&#x9;.getStartedBy())&#xA;&#x9;&#x9;&#x9;&#xA;}catch(UserNotFoundException e){&#xA;&#x9;// Handle UserNotFoundException here&#xA;&#x9;// Was the process started by the system (e.g.: a start event) ?&#xA;&#x9;// Has the user who started the process instance been deleted ?&#xA;}&#xA;&#xA;&#xA;invoiceVar.id = kubikTransaction.Generator.id(prevId[0], &quot;5&quot;)&#xA;invoiceVar.caseId = processInstanceId&#xA;invoiceVar.invoiceDate = LocalDateTime.now()&#xA;&#xA;invoiceVar.details = {&#xA;&#x9;def invoiceDetailList = []&#xA;&#x9;//For each item collected in multiple input&#xA;&#x9;invoiceInput?.details.each{&#xA;&#x9;&#x9;//Add a new composed InvoiceDetail instance&#xA;&#x9;&#x9;invoiceDetailList.add({ currentInvoiceDetailInput ->&#xA;&#x9;&#x9;&#x9;def invoiceDetailVar = new kubik.finance.InvoiceDetail()&#xA;&#x9;&#x9;&#x9;invoiceDetailVar.description = currentInvoiceDetailInput.description&#xA;&#x9;&#x9;&#x9;invoiceDetailVar.qty = currentInvoiceDetailInput.qty&#xA;&#x9;&#x9;&#x9;invoiceDetailVar.unitPrice = currentInvoiceDetailInput.unitPrice&#xA;&#x9;&#x9;&#x9;invoiceDetailVar.amount = invoiceDetailVar.qty*invoiceDetailVar.unitPrice&#xA;&#x9;&#x9;&#x9;invoiceDetailVar.taxType = currentInvoiceDetailInput?.taxType&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;// Calculate Total&#xA;&#x9;&#x9;&#x9;listAmount &lt;&lt; invoiceDetailVar.amount&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if(invoiceDetailVar.taxType){&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;// Calculate Tax&#xA;&#x9;&#x9;&#x9;&#x9;def taxRate = taxDAO.findByCode(invoiceDetailVar.taxType)&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;if(taxRate.type.toLowerCase()==&quot;flat&quot;){invoiceDetailVar.tax = invoiceDetailVar.amount * taxRate.rates[0].rate}&#xA;&#x9;&#x9;&#x9;&#x9;else{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;def rate = 0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;taxRate.rates.each {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;if(invoiceDetailVar.amount &lt;= it.amount){ rate = it.rate}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;invoiceDetailVar.tax = invoiceDetailVar.amount * rate&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;else{&#xA;&#x9;&#x9;&#x9;&#x9;invoiceDetailVar.tax = 0&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;listTax &lt;&lt; invoiceDetailVar.tax&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;return invoiceDetailVar&#xA;&#x9;&#x9;}(it))&#xA;&#x9;}&#xA;&#x9;return invoiceDetailList}()&#xA;invoiceVar.dueDate = invoiceInput?.dueDate&#xA;invoiceVar.payer = {&#xA;&#x9;//Retrieve aggregated Customer using its DAO and persistenceId&#xA;&#x9;def customerVar = customerDAO.findByPersistenceId(invoiceInput?.payer?.persistenceId_string?.trim() ? invoiceInput.payer.persistenceId_string.toLong() : null)&#xA;&#x9;if (!customerVar) {&#xA;&#x9;&#x9;if (invoiceInput?.payer?.persistenceId_string?.trim() ? invoiceInput.payer.persistenceId_string.toLong() : null) {&#xA;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `Customer` with the persistence id &quot; + invoiceInput?.payer?.persistenceId_string?.trim() ? invoiceInput.payer.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;return null&#xA;&#x9;}&#xA;&#x9;return customerVar}()&#xA;&#xA;// Calculate Total Charges&#xA;invoiceVar.adjustment = invoiceInput?.adjustment&#xA;invoiceVar.tax = listTax.sum()&#xA;invoiceVar.amount = listAmount.sum()&#xA;invoiceVar.totalCharges = invoiceVar.amount + invoiceVar.adjustment + invoiceVar.tax&#xA;&#xA;return invoiceVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="kubik.finance.Invoice">
+          <referencedElements xmi:type="expression:Expression" xmi:id="_-7HW0GXuEeuJr9wPcM03Qw" name="invoiceDAO" content="invoiceDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="kubik.finance.InvoiceDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_-7HW0WXuEeuJr9wPcM03Qw" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_-7HW0mXuEeuJr9wPcM03Qw" name="apiAccessor" content="apiAccessor" type="TYPE_ENGINE_CONSTANT" returnType="org.bonitasoft.engine.api.APIAccessor"/>
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_-7HW02XuEeuJr9wPcM03Qw" name="invoiceInput" type="COMPLEX"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_-7HW1GXuEeuJr9wPcM03Qw" name="customerDAO" content="customerDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="kubik.customer.CustomerDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_-7HW1WXuEeuJr9wPcM03Qw" name="taxDAO" content="taxDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="kubik.finance.TaxDAO" returnTypeFixed="true"/>
+        </defaultValue>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_9WHXoGXdEeuJr9wPcM03Qw" name="invoiceId" dataType="_gnltTkjSEeuR78XBy6Awbg">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_9WHXoWXdEeuJr9wPcM03Qw" content="" returnType="java.lang.Integer"/>
+      </data>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_dsluwGUlEeuGc6v4UE4n2w" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_dsluwWUlEeuGc6v4UE4n2w" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </formMapping>
+      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_dsluwmUlEeuGc6v4UE4n2w" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_dsluw2UlEeuGc6v4UE4n2w" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </overviewFormMapping>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_hrGCEGXdEeuJr9wPcM03Qw" target="_-ax5oGXdEeuJr9wPcM03Qw" source="_eNR3YGXdEeuJr9wPcM03Qw">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_hrGpIGXdEeuJr9wPcM03Qw"/>
+        <condition xmi:type="expression:Expression" xmi:id="_hrGpIWXdEeuJr9wPcM03Qw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_-a84wGXdEeuJr9wPcM03Qw" target="_hq7C8GXdEeuJr9wPcM03Qw" source="_-ax5oGXdEeuJr9wPcM03Qw">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_-a84wWXdEeuJr9wPcM03Qw"/>
+        <condition xmi:type="expression:Expression" xmi:id="_-a84wmXdEeuJr9wPcM03Qw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <contract xmi:type="process:Contract" xmi:id="_dsluxGUlEeuGc6v4UE4n2w">
+        <inputs xmi:type="process:ContractInput" xmi:id="_p_VSwGUlEeuGc6v4UE4n2w" name="invoiceInput" type="COMPLEX" dataReference="invoice">
+          <inputs xmi:type="process:ContractInput" xmi:id="_p_VSwmUlEeuGc6v4UE4n2w" name="details" type="COMPLEX" multiple="true">
+            <inputs xmi:type="process:ContractInput" xmi:id="_p_VSw2UlEeuGc6v4UE4n2w" name="description"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_p_VSxGUlEeuGc6v4UE4n2w" name="qty" type="DECIMAL"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_p_VSxWUlEeuGc6v4UE4n2w" name="unitPrice" type="DECIMAL"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_rEIFoGXrEeuJr9wPcM03Qw" name="taxType">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_rEIFoWXrEeuJr9wPcM03Qw"/>
+            </inputs>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_p_VSxmUlEeuGc6v4UE4n2w" name="dueDate" type="LOCALDATE"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_p_VSx2UlEeuGc6v4UE4n2w" name="payer" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_p_VSyGUlEeuGc6v4UE4n2w" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_p_VSyWUlEeuGc6v4UE4n2w" name="adjustment" type="DECIMAL"/>
+        </inputs>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_p_XH8WUlEeuGc6v4UE4n2w" expression="!invoiceInput?.payer || invoiceInput?.payer?.persistenceId_string" errorMessage="Customer must reference an existing instance with a persistenceId for Invoice" name="aggregation_invoiceInput_payer">
+          <inputNames>invoiceInput</inputNames>
+        </constraints>
+      </contract>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_dsj5kGUlEeuGc6v4UE4n2w">
+        <name xmi:type="expression:Expression" xmi:id="_dsj5kWUlEeuGc6v4UE4n2w" name="invoiceId" content="invoiceId" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_dsj5kmUlEeuGc6v4UE4n2w" name="invoiceId()" content="invoice.id" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
+          <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_aoblsGXfEeuJr9wPcM03Qw" name="invoice" dataType="_gnltVEjSEeuR78XBy6Awbg" className="kubik.finance.Invoice"/>
+        </value>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_dsj5k2UlEeuGc6v4UE4n2w">
+        <name xmi:type="expression:Expression" xmi:id="_dsj5lGUlEeuGc6v4UE4n2w" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_dsj5lWUlEeuGc6v4UE4n2w" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_dsj5lmUlEeuGc6v4UE4n2w">
+        <name xmi:type="expression:Expression" xmi:id="_dsj5l2UlEeuGc6v4UE4n2w" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_dsj5mGUlEeuGc6v4UE4n2w" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_dsj5mWUlEeuGc6v4UE4n2w">
+        <name xmi:type="expression:Expression" xmi:id="_dsj5mmUlEeuGc6v4UE4n2w" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_dsj5m2UlEeuGc6v4UE4n2w" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_dsj5nGUlEeuGc6v4UE4n2w">
+        <name xmi:type="expression:Expression" xmi:id="_dsj5nWUlEeuGc6v4UE4n2w" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_dsj5nmUlEeuGc6v4UE4n2w" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+    </elements>
+    <elements xmi:type="process:Pool" xmi:id="_xnehEGXvEeuJr9wPcM03Qw" documentation="Configuration of tax definition and rates" name="FIN_SetupTax" displayName="Setup Tax">
+      <elements xmi:type="process:StartEvent" xmi:id="_-M3e0GXwEeuJr9wPcM03Qw" name="Start" outgoing="_ZdQG0GXxEeuJr9wPcM03Qw">
+        <dynamicLabel xmi:type="expression:Expression" xmi:id="_-M5UAWXwEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <dynamicDescription xmi:type="expression:Expression" xmi:id="_-M5UAGXwEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <stepSummary xmi:type="expression:Expression" xmi:id="_-M5UAmXwEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+      </elements>
+      <elements xmi:type="process:EndEvent" xmi:id="_ZdLOUGXxEeuJr9wPcM03Qw" name="End" incoming="_ZdQG0GXxEeuJr9wPcM03Qw">
+        <dynamicLabel xmi:type="expression:Expression" xmi:id="_ZdNDgWXxEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <dynamicDescription xmi:type="expression:Expression" xmi:id="_ZdNDgGXxEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+        <stepSummary xmi:type="expression:Expression" xmi:id="_ZdNDgmXxEeuJr9wPcM03Qw" name="" content="" returnTypeFixed="true"/>
+      </elements>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_0kGqQGXvEeuJr9wPcM03Qw" name="tax" dataType="_gnltVEjSEeuR78XBy6Awbg" className="kubik.finance.Tax">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_2d3BN2XvEeuJr9wPcM03Qw" name="initTax()" content="def taxVar = taxInput.persistenceId_string ? taxDAO.findByPersistenceId(taxInput.persistenceId_string.toLong()) : new kubik.finance.Tax()&#xA;taxVar.code = taxInput?.code&#xA;taxVar.description = taxInput?.description&#xA;taxVar.type = taxInput?.type&#xA;taxVar.caseId = processInstanceId&#xA;taxVar.rates = {&#xA;&#x9;def taxRateList = []&#xA;&#x9;//For each item collected in multiple input&#xA;&#x9;taxInput?.rates.each{&#xA;&#x9;&#x9;//Add a new composed TaxRate instance&#xA;&#x9;&#x9;taxRateList.add({ currentTaxRateInput ->&#xA;&#x9;&#x9;&#x9;def taxRateVar = new kubik.finance.TaxRate()&#xA;&#x9;&#x9;&#x9;taxRateVar.amount = currentTaxRateInput.amount&#xA;&#x9;&#x9;&#x9;taxRateVar.rate = currentTaxRateInput.rate&#xA;&#x9;&#x9;&#x9;return taxRateVar&#xA;&#x9;&#x9;}(it))&#xA;&#x9;}&#xA;&#x9;return taxRateList}()&#xA;return taxVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="kubik.finance.Tax">
+          <referencedElements xmi:type="expression:Expression" xmi:id="_JrdpEGXxEeuJr9wPcM03Qw" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_JrdpEWXxEeuJr9wPcM03Qw" name="taxInput" type="COMPLEX"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_JrdpEmXxEeuJr9wPcM03Qw" name="taxDAO" content="taxDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="kubik.finance.TaxDAO" returnTypeFixed="true"/>
+        </defaultValue>
+      </data>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_xng9W2XvEeuJr9wPcM03Qw">
+        <targetForm xmi:type="expression:Expression" xmi:id="_NfKuwGXyEeuJr9wPcM03Qw" name="FINSetupTax" content="55572a63-7a48-4b38-a06c-3f4ed29846ef" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </formMapping>
+      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_xng9XWXvEeuJr9wPcM03Qw">
+        <targetForm xmi:type="expression:Expression" xmi:id="_xng9XmXvEeuJr9wPcM03Qw" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </overviewFormMapping>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_ZdQG0GXxEeuJr9wPcM03Qw" target="_ZdLOUGXxEeuJr9wPcM03Qw" source="_-M3e0GXwEeuJr9wPcM03Qw">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_ZdQG0WXxEeuJr9wPcM03Qw"/>
+        <condition xmi:type="expression:Expression" xmi:id="_ZdQG0mXxEeuJr9wPcM03Qw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <contract xmi:type="process:Contract" xmi:id="_xng9X2XvEeuJr9wPcM03Qw">
+        <inputs xmi:type="process:ContractInput" xmi:id="_2d3BMGXvEeuJr9wPcM03Qw" name="taxInput" type="COMPLEX" dataReference="tax">
+          <inputs xmi:type="process:ContractInput" xmi:id="_2d3BMWXvEeuJr9wPcM03Qw" name="code"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_2d3BMmXvEeuJr9wPcM03Qw" name="description"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_2d3BM2XvEeuJr9wPcM03Qw" name="type"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_2d3BNGXvEeuJr9wPcM03Qw" name="rates" type="COMPLEX" multiple="true">
+            <inputs xmi:type="process:ContractInput" xmi:id="_2d3BNWXvEeuJr9wPcM03Qw" name="amount" type="DECIMAL"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_2d3BNmXvEeuJr9wPcM03Qw" name="rate" type="DECIMAL"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_AHG98GXxEeuJr9wPcM03Qw" name="persistenceId_string">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_AHG98WXxEeuJr9wPcM03Qw"/>
+          </inputs>
+        </inputs>
+      </contract>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_xngWQGXvEeuJr9wPcM03Qw">
+        <name xmi:type="expression:Expression" xmi:id="_xngWQWXvEeuJr9wPcM03Qw" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_xngWQmXvEeuJr9wPcM03Qw" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_xngWQ2XvEeuJr9wPcM03Qw">
+        <name xmi:type="expression:Expression" xmi:id="_xng9UGXvEeuJr9wPcM03Qw" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_xng9UWXvEeuJr9wPcM03Qw" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_xng9UmXvEeuJr9wPcM03Qw">
+        <name xmi:type="expression:Expression" xmi:id="_xng9U2XvEeuJr9wPcM03Qw" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_xng9VGXvEeuJr9wPcM03Qw" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_xng9VWXvEeuJr9wPcM03Qw">
+        <name xmi:type="expression:Expression" xmi:id="_xng9VmXvEeuJr9wPcM03Qw" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_xng9V2XvEeuJr9wPcM03Qw" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_xng9WGXvEeuJr9wPcM03Qw">
+        <name xmi:type="expression:Expression" xmi:id="_xng9WWXvEeuJr9wPcM03Qw" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_xng9WmXvEeuJr9wPcM03Qw" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+    </elements>
+    <datatypes xmi:type="process:BooleanType" xmi:id="_gnltTEjSEeuR78XBy6Awbg" name="Boolean"/>
+    <datatypes xmi:type="process:DateType" xmi:id="_gnltTUjSEeuR78XBy6Awbg" name="Date"/>
+    <datatypes xmi:type="process:IntegerType" xmi:id="_gnltTkjSEeuR78XBy6Awbg" name="Integer"/>
+    <datatypes xmi:type="process:LongType" xmi:id="_gnltT0jSEeuR78XBy6Awbg" name="Long"/>
+    <datatypes xmi:type="process:DoubleType" xmi:id="_gnltUEjSEeuR78XBy6Awbg" name="Double"/>
+    <datatypes xmi:type="process:StringType" xmi:id="_gnltUUjSEeuR78XBy6Awbg" name="Text"/>
+    <datatypes xmi:type="process:JavaType" xmi:id="_gnltUkjSEeuR78XBy6Awbg" name="Java_object"/>
+    <datatypes xmi:type="process:XMLType" xmi:id="_gnltU0jSEeuR78XBy6Awbg" name="XML"/>
+    <datatypes xmi:type="process:BusinessObjectType" xmi:id="_gnltVEjSEeuR78XBy6Awbg" name="Business_Object"/>
+  </process:MainProcess>
+  <notation:Diagram xmi:id="_gnltVUjSEeuR78XBy6Awbg" type="Process" element="_gnltIEjSEeuR78XBy6Awbg" name="MyDiagram" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_xniLcGXvEeuJr9wPcM03Qw" type="2007" element="_xnehEGXvEeuJr9wPcM03Qw">
+      <children xmi:type="notation:DecorationNode" xmi:id="_xniygGXvEeuJr9wPcM03Qw" type="5008"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_xniygWXvEeuJr9wPcM03Qw" type="7001">
+        <children xmi:type="notation:Shape" xmi:id="_-M6iIGXwEeuJr9wPcM03Qw" type="3002" element="_-M3e0GXwEeuJr9wPcM03Qw" fontName=".AppleSystemUIFont">
+          <children xmi:type="notation:DecorationNode" xmi:id="_-M6iImXwEeuJr9wPcM03Qw" type="5024">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_-M6iI2XwEeuJr9wPcM03Qw" y="5"/>
+          </children>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-M6iIWXwEeuJr9wPcM03Qw" x="68" y="62"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_ZdNqkGXxEeuJr9wPcM03Qw" type="3003" element="_ZdLOUGXxEeuJr9wPcM03Qw" fontName=".AppleSystemUIFont">
+          <children xmi:type="notation:DecorationNode" xmi:id="_ZdNqkmXxEeuJr9wPcM03Qw" type="5025">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_ZdNqk2XxEeuJr9wPcM03Qw" y="5"/>
+          </children>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ZdNqkWXxEeuJr9wPcM03Qw" x="232" y="62"/>
+        </children>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_xniLcWXvEeuJr9wPcM03Qw"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_xniLcmXvEeuJr9wPcM03Qw" fontName=".AppleSystemUIFont"/>
+      <styles xmi:type="notation:LineStyle" xmi:id="_xniLc2XvEeuJr9wPcM03Qw"/>
+      <styles xmi:type="notation:FillStyle" xmi:id="_xniygmXvEeuJr9wPcM03Qw"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xniLdGXvEeuJr9wPcM03Qw" width="517" height="153"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_dtj_IGUlEeuGc6v4UE4n2w" type="2007" element="_dpwdMGUlEeuGc6v4UE4n2w">
+      <children xmi:type="notation:DecorationNode" xmi:id="_dtkmMGUlEeuGc6v4UE4n2w" type="5008"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_dtkmMWUlEeuGc6v4UE4n2w" type="7001">
+        <children xmi:type="notation:Shape" xmi:id="_eNVhwGXdEeuJr9wPcM03Qw" type="3002" element="_eNR3YGXdEeuJr9wPcM03Qw" fontName=".AppleSystemUIFont">
+          <children xmi:type="notation:DecorationNode" xmi:id="_eNWI0GXdEeuJr9wPcM03Qw" type="5024">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_eNWI0WXdEeuJr9wPcM03Qw" y="5"/>
+          </children>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eNVhwWXdEeuJr9wPcM03Qw" x="82" y="54"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_hq7qAGXdEeuJr9wPcM03Qw" type="3003" element="_hq7C8GXdEeuJr9wPcM03Qw" fontName=".AppleSystemUIFont">
+          <children xmi:type="notation:DecorationNode" xmi:id="_hq8REGXdEeuJr9wPcM03Qw" type="5025">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hq8REWXdEeuJr9wPcM03Qw" y="5"/>
+          </children>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hq7qAWXdEeuJr9wPcM03Qw" x="320" y="54"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_-aygsmXdEeuJr9wPcM03Qw" type="3028" element="_-ax5oGXdEeuJr9wPcM03Qw" fontName=".AppleSystemUIFont" fillColor="14334392" lineColor="10710316">
+          <children xmi:type="notation:DecorationNode" xmi:id="_-azHwGXdEeuJr9wPcM03Qw" type="5018"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-aygs2XdEeuJr9wPcM03Qw" x="169" y="45"/>
+        </children>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_dtj_IWUlEeuGc6v4UE4n2w"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_dtj_ImUlEeuGc6v4UE4n2w" fontName=".AppleSystemUIFont"/>
+      <styles xmi:type="notation:LineStyle" xmi:id="_dtj_I2UlEeuGc6v4UE4n2w"/>
+      <styles xmi:type="notation:FillStyle" xmi:id="_dtkmMmUlEeuGc6v4UE4n2w"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_dtj_JGUlEeuGc6v4UE4n2w" width="517" height="153"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_gnltbUjSEeuR78XBy6Awbg"/>
+    <edges xmi:type="notation:Connector" xmi:id="_hrHQMGXdEeuJr9wPcM03Qw" type="4001" element="_hrGCEGXdEeuJr9wPcM03Qw" source="_eNVhwGXdEeuJr9wPcM03Qw" target="_-aygsmXdEeuJr9wPcM03Qw" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_hrH3QGXdEeuJr9wPcM03Qw" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_hrIeUGXdEeuJr9wPcM03Qw" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_hrHQMWXdEeuJr9wPcM03Qw" fontName=".AppleSystemUIFont"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hrHQMmXdEeuJr9wPcM03Qw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_-a84w2XdEeuJr9wPcM03Qw" type="4001" element="_-a84wGXdEeuJr9wPcM03Qw" source="_-aygsmXdEeuJr9wPcM03Qw" target="_hq7qAGXdEeuJr9wPcM03Qw" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_-a9f0GXdEeuJr9wPcM03Qw" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_-a9f0WXdEeuJr9wPcM03Qw" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_-a84xGXdEeuJr9wPcM03Qw" fontName=".AppleSystemUIFont"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-a84xWXdEeuJr9wPcM03Qw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_ZdQt4GXxEeuJr9wPcM03Qw" type="4001" element="_ZdQG0GXxEeuJr9wPcM03Qw" source="_-M6iIGXwEeuJr9wPcM03Qw" target="_ZdNqkGXxEeuJr9wPcM03Qw" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_ZdQt42XxEeuJr9wPcM03Qw" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_ZdQt5GXxEeuJr9wPcM03Qw" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_ZdQt4WXxEeuJr9wPcM03Qw" fontName=".AppleSystemUIFont"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ZdQt4mXxEeuJr9wPcM03Qw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    </edges>
+  </notation:Diagram>
+</xmi:XMI>

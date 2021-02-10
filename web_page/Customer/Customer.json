@@ -1,0 +1,171 @@
+{
+  "modelVersion" : "2.0",
+  "id" : "Customer",
+  "name" : "Customer",
+  "lastUpdate" : 1612846866487,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "constant",
+            "value" : "Customer"
+          }
+        },
+        "reference" : "468a5b3c-a1d7-4717-935f-547ce51a36f3",
+        "hasValidationError" : false,
+        "id" : "customGaris"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "Bar"
+          },
+          "data" : {
+            "type" : "constant",
+            "value" : [
+              65,
+              59,
+              80,
+              81,
+              56,
+              55,
+              40
+            ]
+          },
+          "labels" : {
+            "type" : "constant",
+            "value" : [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July"
+            ]
+          },
+          "setLabels" : {
+            "type" : "constant",
+            "value" : [
+              "Default set label"
+            ]
+          },
+          "legendHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "colors" : {
+            "type" : "constant"
+          },
+          "options" : {
+            "type" : "constant"
+          }
+        },
+        "reference" : "144fd21f-6103-405a-84cc-550378d9776f",
+        "hasValidationError" : false,
+        "id" : "pbChart"
+      },
+      {
+        "type" : "fragment",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          }
+        },
+        "reference" : "4162231d-c63a-48aa-913f-24bfff2ee7ee",
+        "hasValidationError" : false,
+        "id" : "customerData",
+        "binding" : {
+          "jumlah" : "3",
+          "nama" : "\"Stephanus Arnold\""
+        }
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "9040c349-643f-4e8b-bd91-4f90a6369d59",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "8995b4c6-8b48-4ace-a022-9bef9a1533ba",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "personal" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"find [maybank.general.Personal]\",\"businessObjectName\":\"Personal\",\"query\":{\"name\":\"find\",\"displayName\":\"find\"},\"id\":\"maybank.general.Personal\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "personal_selected" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : false
+    },
+    "filterNama" : {
+      "type" : "constant",
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "338ac05a-c32d-4aca-af5f-43262e438bb1",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
+}
